@@ -1,6 +1,6 @@
 scheming_version: 2
 dataset_type: dataset
-about: A reimplementation of the default CKAN dataset schema
+about: A reimplementation of the default CKAN dataset schema with custom fields
 about_url: http://github.com/ckan/ckanext-scheming
 
 
@@ -73,19 +73,333 @@ dataset_fields:
 
 resource_fields:
 
-- field_name: url
-  label: URL
-  preset: resource_url_upload
+  - field_name: url
+    label: URL
+    preset: resource_url_upload
 
-- field_name: name
-  label: Name
-  form_placeholder: eg. January 2011 Gold Prices
+  - field_name: name
+    label: Name
+    form_placeholder: eg. January 2011 Gold Prices
 
-- field_name: description
-  label: Description
-  form_snippet: markdown.html
-  form_placeholder: Some useful notes about the data
+  - field_name: description
+    label: Description
+    form_snippet: markdown.html
+    form_placeholder: Some useful notes about the data
 
-- field_name: format
-  label: Format
-  preset: resource_format_autocomplete
+  - field_name: format
+    label: Format
+    preset: resource_format_autocomplete
+
+  - field_name: restricted
+    label: Access Restriction
+    preset: composite
+    subfields:
+      - field_name: level
+        label: Level
+        preset: select
+        form_include_blank_choice: false
+        required: true
+        choices:
+          - value: public
+            label: Public
+          - value: registered
+            label: Registered Users
+          - value: any_organization
+            label: Any Organization Members (Trusted Users)
+          - value: same_organization
+            label: Same Organization Members
+          - value: only_allowed_users
+            label: Allowed Users Only
+      - field_name: allowed_users
+        label: Allowed Users
+        preset: tag_string_autocomplete
+        data-module-source: /api/2/util/user/autocomplete?q=?
+
+  # New Fields for Resource Metadata
+  - field_name: file_type
+    label: File Type
+    hidden: true
+    searchable: true
+    choices:
+      - value: "file type"
+        label: "File Type"
+      - value: "file category"
+        label: "File Category"
+      - value: "doc type"
+        label: "Document Type"
+      - value: "doc category"
+        label: "Document Category"
+      - value: "file extension"
+        label: "File Extension"
+      - value: "file"
+        label: "File"
+
+  - field_name: sample_id
+    label: Sample ID
+    hidden: true
+    searchable: true
+    choices:
+      - value: "sample id"
+        label: "Sample ID"
+      - value: "sampleID"
+        label: "Sample ID"
+      - value: "sample identifier"
+        label: "Sample Identifier"
+      - value: "sample code"
+        label: "Sample Code"
+      - value: "sample no"
+        label: "Sample No"
+      - value: "sample name"
+        label: "Sample Name"
+
+  - field_name: sex
+    label: Sex
+    hidden: true
+    searchable: true
+    choices:
+      - value: "sex"
+        label: "Sex"
+      - value: "gender"
+        label: "Gender"
+      - value: "self-declared sex"
+        label: "Self-Declared Sex"
+      - value: "biological sex"
+        label: "Biological Sex"
+      - value: "passport sex"
+        label: "Passport Sex"
+
+  - field_name: age_at_diagnosis
+    label: Age at Diagnosis
+    hidden: true
+    searchable: true
+    choices:
+      - value: "age at diagnosis"
+        label: "Age at Diagnosis"
+      - value: "age diagnosis"
+        label: "Age Diagnosis"
+      - value: "diagnostic age"
+        label: "Diagnostic Age"
+      - value: "age when diagnosed"
+        label: "Age When Diagnosed"
+      - value: "diagnosis age"
+        label: "Diagnosis Age"
+      - value: "age"
+        label: "Age"
+      - value: "Age"
+        label: "Age"
+
+  - field_name: genes
+    label: Genes with Known Pathogenic Mutation
+    hidden: true
+    searchable: true
+    choices:
+      - value: "genes with known mutation"
+        label: "Genes with Known Mutation"
+      - value: "pathogenic genes"
+        label: "Pathogenic Genes"
+      - value: "mutation genes"
+        label: "Mutation Genes"
+      - value: "known mutation"
+        label: "Known Mutation"
+      - value: "pathogenic"
+        label: "Pathogenic"
+      - value: "genes"
+        label: "Genes"
+      - value: "driver gene"
+        label: "Driver Gene"
+      - value: "signature gene"
+        label: "Signature Gene"
+
+  - field_name: diagnosis_date
+    label: Diagnosis Date
+    hidden: true
+    searchable: true
+    choices:
+      - value: "diagnosis date"
+        label: "Diagnosis Date"
+      - value: "date of diagnosis"
+        label: "Date of Diagnosis"
+      - value: "date diagnosed"
+        label: "Date Diagnosed"
+      - value: "diagnostic date"
+        label: "Diagnostic Date"
+      - value: "received date"
+        label: "Received Date"
+
+  - field_name: last_time_visit
+    label: Last Time Visit
+    hidden: true
+    searchable: true
+    choices:
+      - value: "last visit"
+        label: "Last Visit"
+      - value: "last consultation"
+        label: "Last Consultation"
+      - value: "last follow-up"
+        label: "Last Follow-Up"
+      - value: "last checkup"
+        label: "Last Checkup"
+      - value: "visit"
+        label: "Visit"
+      - value: "last alive date"
+        label: "Last Alive Date"
+      - value: "deceased date"
+        label: "Deceased Date"
+      - value: "pass away date"
+        label: "Pass Away Date"
+
+  - field_name: alive_status
+    label: Alive Status
+    hidden: true
+    searchable: true
+    choices:
+      - value: "alive status"
+        label: "Alive Status"
+      - value: "survival status"
+        label: "Survival Status"
+      - value: "living status"
+        label: "Living Status"
+      - value: "survival state"
+        label: "Survival State"
+      - value: "alive state"
+        label: "Alive State"
+      - value: "live or dead"
+        label: "Live or Dead"
+
+  - field_name: diagnosis
+    label: Diagnosis
+    hidden: true
+    searchable: true
+    choices:
+      - value: "diagnosis"
+        label: "Diagnosis"
+      - value: "diagnosis free text"
+        label: "Diagnosis Free Text"
+      - value: "diagnosis notes"
+        label: "Diagnosis Notes"
+      - value: "diagnosis comments"
+        label: "Diagnosis Comments"
+      - value: "diagnostic text"
+        label: "Diagnostic Text"
+      - value: "diagnosis description"
+        label: "Diagnosis Description"
+      - value: "classifier"
+        label: "Classifier"
+      - value: "classifier diagnosis"
+        label: "Classifier Diagnosis"
+      - value: "integrated diagnosis"
+        label: "Integrated Diagnosis"
+      - value: "WHO diagnosis"
+        label: "WHO Diagnosis"
+
+  - field_name: treatment
+    label: Treatment
+    hidden: true
+    searchable: true
+    choices:
+      - value: "treatment"
+        label: "Treatment"
+      - value: "comment free text"
+        label: "Comment Free Text"
+      - value: "treatment notes"
+        label: "Treatment Notes"
+      - value: "treatment comments"
+        label: "Treatment Comments"
+      - value: "treatment text"
+        label: "Treatment Text"
+      - value: "treatment description"
+        label: "Treatment Description"
+
+  - field_name: tumor_content
+    label: Tumor Content
+    hidden: true
+    searchable: true
+    choices:
+      - value: "tumor proportion"
+        label: "Tumor Proportion"
+      - value: "proportion of tumor cells"
+        label: "Proportion of Tumor Cells"
+      - value: "percentage of tumor tissue"
+        label: "Percentage of Tumor Tissue"
+      - value: "tumor purity"
+        label: "Tumor Purity"
+      - value: "tumor content"
+        label: "Tumor Content"
+
+  - field_name: tissue
+    label: Tissue
+    hidden: true
+    searchable: true
+    choices:
+      - value: "tissue"
+        label: "Tissue"
+      - value: "organ"
+        label: "Organ"
+      - value: "system"
+        label: "System"
+      - value: "body location"
+        label: "Body Location"
+      - value: "location"
+        label: "Location"
+      - value: "localization"
+        label: "Localization"
+      - value: "body organ"
+        label: "Body Organ"
+      - value: "specimen origin"
+        label: "Specimen Origin"
+      - value: "tissue origin"
+        label: "Tissue Origin"
+      - value: "tissue type"
+        label: "Tissue Type"
+
+  - field_name: recurrent
+    label: Recurrent
+    hidden: true
+    searchable: true
+    choices:
+      - value: "recurrent"
+        label: "Recurrent"
+      - value: "repeated"
+        label: "Repeated"
+      - value: "returned"
+        label: "Returned"
+      - value: "secondary"
+        label: "Secondary"
+      - value: "non primed"
+        label: "Non Primed"
+      - value: "persistent"
+        label: "Persistent"
+
+  - field_name: metastatic
+    label: Metastatic
+    hidden: true
+    searchable: true
+    choices:
+      - value: "metastasized"
+        label: "Metastasized"
+      - value: "metastatic"
+        label: "Metastatic"
+      - value: "non localized"
+        label: "Non Localized"
+
+  - field_name: grade
+    label: Grade
+    hidden: true
+    searchable: true
+    choices:
+      - value: "WHO grade"
+        label: "WHO Grade"
+      - value: "tumors state"
+        label: "Tumors State"
+      - value: "state"
+        label: "State"
+      - value: "grade"
+        label: "Grade"
+      - value: "stage"
+        label: "Stage"
+      - value: "tumor stage"
+        label: "Tumor Stage"
+      - value: "disease stage"
+        label: "Disease Stage"
+      - value: "disease grade"
+        label: "Disease Grade"
