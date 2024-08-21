@@ -65,20 +65,33 @@
       {# We pass pkg_name as the package_id because that's the only
       variable available in this snippet #}
      {% if field.preset == 'resource_url_upload' %}
-     
-        {% block basic_fields_url %}
-          {% set is_upload = (data.url_type == 'upload') %}
-          {% snippet 'package/snippets/resource_upload_field.html',
-            data=data,
-            pkg_dict=pkg_dict,
-            errors=errors,
-            is_url=data.url and not is_upload,
-            is_upload=is_upload,
-            is_upload_enabled=h.uploads_enabled(),
-            url_label=_('URL'),
-            upload_label=_('File'),
-            placeholder=_('http://example.com/external-data.csv') %}
-      {% endblock %}
+         
+        {% if field.field_name == 'url' %}
+          {% block basic_fields_url %}
+            {% set is_upload = (data.url_type == 'upload') %}
+            {% snippet 'package/snippets/resource_upload_field.html',
+              data=data,
+              pkg_dict=pkg_dict,
+              errors=errors,
+              is_url=data.url and not is_upload,
+              is_upload=is_upload,
+              is_upload_enabled=h.uploads_enabled(),
+              url_label=_('URL'),
+              upload_label=_('File'),
+              placeholder=_('http://example.com/external-data.csv') %}
+            {% endblock %}
+          {% else %}
+          
+             {% snippet 'package/snippets/resource_upload_fieldsimple.html',
+              data=data,
+              pkg_dict=pkg_dict,
+              errors=errors,
+              is_upload_enabled=h.uploads_enabled(),
+              url_label=_('URL'),
+              upload_label=_('File'),
+              placeholder=_('http://example.com/external-data.csv') %}
+          {% endif %}
+        
      {% else %}
             {%- snippet 'scheming/snippets/form_field.html',
         field=field,

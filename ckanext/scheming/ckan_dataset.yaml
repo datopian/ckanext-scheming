@@ -86,6 +86,10 @@ resource_fields:
     form_snippet: markdown.html
     form_placeholder: Some useful notes about the data
 
+  - field_name: index_url
+    label: Index link
+    preset: resource_url_upload
+
   - field_name: format
     label: Format
     preset: resource_format_autocomplete
