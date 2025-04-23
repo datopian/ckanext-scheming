@@ -21,6 +21,21 @@
       }
     },
     {
+      "preset_name": "group_slug",
+      "values": {
+        "validators": "not_empty unicode_safe name_validator package_name_validator",
+        "form_snippet": "slug.html"
+      }
+    },
+    {
+      "preset_name": "organization_slug",
+      "values": {
+        "validators": "not_empty unicode_safe name_validator package_name_validator",
+        "form_snippet": "slug.html"
+      }
+    },
+
+    {
       "preset_name": "tag_string_autocomplete",
       "values": {
         "validators": "ignore_missing tag_string_convert",
